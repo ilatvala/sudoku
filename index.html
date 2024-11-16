@@ -122,6 +122,7 @@
         function checkSolution() {
             let isCorrect = true;
             const incorrectCells = [];
+            let allFilled = true;
 
             board.forEach((row, rowIndex) => {
                 row.forEach((cellValue, colIndex) => {
@@ -131,7 +132,9 @@
                     const input = cell.querySelector('input');
                     const value = parseInt(input.value, 10);
 
-                    if (!isNaN(value) && !isValid(board, rowIndex, colIndex, value)) {
+                    if (isNaN(value)) {
+                        allFilled = false;
+                    } else if (!isValid(board, rowIndex, colIndex, value)) {
                         isCorrect = false;
                         incorrectCells.push(cell);
                     }
@@ -146,15 +149,17 @@
             });
 
             const messageElement = document.getElementById('message');
-            if (isCorrect && incorrectCells.length === 0) {
-                messageElement.textContent = 'Congratulations! You solved the puzzle!';
-                messageElement.style.color = 'green';
-            } else if (incorrectCells.length > 0) {
+            if (incorrectCells.length === 0) {
+                if (allFilled) {
+                    messageElement.textContent = 'Congratulations! You solved the puzzle!';
+                    messageElement.style.color = 'green';
+                } else {
+                    messageElement.textContent = 'Good progress! Keep going!';
+                    messageElement.style.color = 'blue';
+                }
+            } else {
                 messageElement.textContent = 'Try again. Some numbers are incorrect.';
                 messageElement.style.color = 'red';
-            } else {
-                messageElement.textContent = 'Please fill in some cells before checking the solution.';
-                messageElement.style.color = 'orange';
             }
         }
 
