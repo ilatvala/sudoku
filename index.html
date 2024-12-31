@@ -31,6 +31,20 @@
             font-size: 18px;
             background-color: white;
         }
+        .cell:nth-child(3n) {
+            border-right: 2px solid #333;
+        }
+        .cell:nth-child(n+19):nth-child(-n+27),
+        .cell:nth-child(n+46):nth-child(-n+54),
+        .cell:nth-child(n+73):nth-child(-n+81) {
+            border-bottom: 2px solid #333;
+        }
+        .cell:nth-child(9n) {
+            border-right: none;
+        }
+        .cell:nth-child(n+73) {
+            border-bottom: none;
+        }
         .cell.fixed {
             background-color: #f9f9f9;
         }
